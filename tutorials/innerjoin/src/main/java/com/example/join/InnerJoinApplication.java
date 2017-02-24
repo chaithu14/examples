@@ -24,6 +24,9 @@ public class InnerJoinApplication implements StreamingApplication
 
     // Inner join Operator
     POJOInnerJoinOperator join = dag.addOperator("Join", new POJOInnerJoinOperator());
+    join.setLeftKeyPrimary(true);
+    join.setRightKeyPrimary(true);
+    //join.setPartitionCount(2);
     ConsoleOutputOperator output = dag.addOperator("Output", new ConsoleOutputOperator());
 
     // Streams

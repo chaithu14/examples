@@ -6,11 +6,11 @@
   </property>
   <property>
     <name>dt.application.InnerJoinExample.operator.Join.prop.leftKeyExpression</name>
-    <value>productId</value>
+    <value>recordId</value>
   </property>
   <property>
     <name>dt.application.InnerJoinExample.operator.Join.prop.rightKeyExpression</name>
-    <value>productId</value>
+    <value>recordId</value>
   </property>
   <property>
     <name>dt.application.InnerJoinExample.operator.Join.prop.timeFieldsStr</name>
@@ -18,19 +18,23 @@
   </property>
   <property>
     <name>dt.application.InnerJoinExample.operator.Join.prop.expiryTime</name>
-    <value>3600000</value>
+    <value>1800000</value>
+  </property>
+  <property>
+    <name>dt.application.InnerJoinExample.operator.Join.prop.bucketSpanTime</name>
+    <value>3000</value>
   </property>
   <property>
     <name>dt.application.InnerJoinExample.operator.Join.prop.includeFieldStr</name>
-    <value>customerId,productId,amount;productCategory,timestamp</value>
+    <value>recordId,customerId,productId,amount;productCategory,timestamp</value>
   </property>
   <property>
     <name>dt.application.InnerJoinExample.operator.Join.prop.noOfBuckets</name>
-    <value>2</value>
+    <value>1</value>
   </property>
-  <property>
+  <!--property>
     <name>dt.application.InnerJoinExample.operator.Join.attr.PARTITIONER</name>
-    <value>com.datatorrent.common.partitioner.StatelessPartitioner:3</value>
-  </property>
+    <value>com.datatorrent.common.partitioner.StatelessPartitioner:1</value>
+  </property!-->
 </configuration>
 
