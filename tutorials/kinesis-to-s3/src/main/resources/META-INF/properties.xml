@@ -1,12 +1,48 @@
 <?xml version="1.0"?>
 <configuration>
   <property>
-    <name>dt.operator.S3InputModule.prop.files</name>
-     <value>s3n://ACCESS_KEY_ID:SECRET_KEY@BUCKET_NAME/DIRECTORY</value>
+    <name>dt.operator.KinesisInput.prop.accessKey</name>
+     <value>AKIAJBHSEZSNRCWRB3MA</value>
   </property>
   <property>
-    <name>dt.operator.HDFSFileCopyModule.prop.outputDirectoryPath</name>
-    <value>hdfs://destination-namenode-service:port/path-to-output-directory</value>
+    <name>dt.operator.KinesisInput.prop.secretKey</name>
+    <value>El/Gs3Mc5hekbjDB3Y1L+c8bV4Ix4E6a9LEvIPFq</value>
+  </property>
+  <property>
+    <name>dt.operator.KinesisInput.prop.endPoint</name>
+    <value>kinesis.us-east-1.amazonaws.com</value>
+  </property>
+  <property>
+    <name>dt.operator.KinesisInput.prop.streamName</name>
+    <value>kinesistos3</value>
+  </property>
+  <property>
+    <name>dt.operator.KinesisInput.prop.initialOffset</name>
+    <value>earliest</value>
+  </property>
+  <property>
+    <name>dt.operator.KinesisInput.prop.tuplesBlast</name>
+    <value>2</value>
+  </property>
+  <property>
+    <name>dt.operator.S3OutputModule.prop.accessKey</name>
+    <value>AKIAJBHSEZSNRCWRB3MA</value>
+  </property>
+  <property>
+    <name>dt.operator.S3OutputModule.prop.secretKey</name>
+    <value>El/Gs3Mc5hekbjDB3Y1L+c8bV4Ix4E6a9LEvIPFq</value>
+  </property>
+  <property>
+    <name>dt.operator.S3OutputModule.prop.bucketName</name>
+    <value>log67</value>
+  </property>
+  <property>
+    <name>dt.operator.S3OutputModule.prop.directoryName</name>
+    <value>kinesisToS3</value>
+  </property>
+  <property>
+    <name>dt.operator.S3OutputModule.prop.maxLength</name>
+    <value>1000</value>
   </property>
 </configuration>
 
