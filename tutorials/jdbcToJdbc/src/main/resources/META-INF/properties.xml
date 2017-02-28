@@ -50,39 +50,94 @@
   </property>
 
   <!-- JDBC driver in use -->
+
   <property>
-    <name>dt.application.JdbcToJdbcApp.operator.JdbcOutput.prop.store.databaseDriver
+    <name>dt.operator.JdbcOutput.prop.store.databaseDriver
     </name>
-    <value>org.hsqldb.jdbcDriver</value>
+    <value>com.amazon.redshift.jdbc4.Driver</value>
   </property>
 
-  <!-- URL to connect to the DB master -->
   <property>
-    <name>dt.application.JdbcToJdbcApp.operator.JdbcOutput.prop.store.databaseUrl
-    </name>
-    <value>jdbc:hsqldb:mem:test</value>
+    <name>dt.operator.JdbcOutput.prop.store.userName</name>
+    <value>masteruser</value>
   </property>
+  <property>
+    <name>dt.operator.JdbcOutput.prop.store.password</name>
+    <value>Master123</value>
+  </property>
+
+  <property>
+    <name>dt.operator.JdbcOutput.prop.store.databaseUrl
+    </name>
+    <value></value>
+  </property>
+
+  <property>
+    <name>dt.operator.JdbcOutput.prop.accessKey</name>
+    <value></value>
+  </property>
+
+  <property>
+    <name>dt.operator.JdbcOutput.prop.secretKey</name>
+    <value></value>
+  </property>
+  <property>
+    <name>dt.operator.JdbcOutput.prop.bucketName</name>
+    <value>log67</value>
+  </property>
+  <property>
+    <name>dt.operator.JdbcOutput.prop.directoryName</name>
+    <value>dataRedShift</value>
+  </property>
+
+  <!--property>
+    <name>dt.operator.JdbcOutput.prop.store.databaseDriver
+    </name>
+    <value>com.mysql.jdbc.Driver</value>
+  </property>
+
+  <property>
+    <name>dt.operator.JdbcOutput.prop.store.userName</name>
+    <value>root</value>
+  </property>
+  <property>
+    <name>dt.operator.JdbcOutput.prop.store.password</name>
+    <value>test</value>
+  </property>
+
+  <property>
+    <name>dt.operator.JdbcOutput.prop.store.databaseUrl
+    </name>
+    <value>jdbc:mysql://localhost:3306/dev</value>
+  </property!-->
 
   <!-- # rows that the operator can retrieve in a window -->
   <property>
-    <name>dt.application.JdbcToJdbcApp.operator.JdbcOutput.prop.batchSize
-    </name>
-    <value>5</value>
+    <name>dt.operator.JdbcOutput.prop.batchSize</name>
+    <value>500</value>
   </property>
 
+  <property>
+    <name>dt.operator.JdbcOutput.prop.maxLengthOfRollingFile</name>
+    <value>101200</value>
+  </property>
   <!-- Output Table name -->
   <property>
-    <name>dt.application.JdbcToJdbcApp.operator.JdbcOutput.prop.tablename
+    <name>dt.operator.JdbcOutput.prop.tableName
     </name>
-    <value>test_output_event_table</value>
+    <value>events</value>
   </property>
   
   <!-- POJO class -->
   <property>
-    <name>dt.application.JdbcToJdbcApp.operator.JdbcOutput.port.input.attr.TUPLE_CLASS
+    <name>dt.operator.JdbcOutput.port.input.attr.TUPLE_CLASS
     </name>
     <value>com.example.mydtapp.PojoEvent</value>
   </property>
 
+  <property>
+    <name>dt.operator.JdbcOutput.attr.PARTITIONER</name>
+    <value>com.datatorrent.common.partitioner.StatelessPartitioner:1</value>
+  </property>
 </configuration>
 
