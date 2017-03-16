@@ -2,11 +2,6 @@ package com.example.mydtapp;
 
 public class PojoEvent
 {
-  @Override
-  public String toString()
-  {
-    return "TestPOJOEvent [accountNumber=" + accountNumber + ", name=" + name + ", amount=" + amount + "]";
-  }
 
   private int accountNumber;
   private String name;
@@ -40,5 +35,11 @@ public class PojoEvent
   public void setAmount(int amount)
   {
     this.amount = amount;
+  }
+
+  @Override
+  public String toString()
+  {
+    return accountNumber + "|" + name + "|" + amount;
   }
 }
