@@ -15,8 +15,8 @@
     <!-- skip tests by default as they depend on external setup -->
     <skipTests>true</skipTests>
     <!-- change this if you desire to use a different version of Apex Core -->
-    <apex.version>3.4.0</apex.version>
-    <malhar.version>3.7.0-SNAPSHOT</malhar.version>
+    <apex.version>3.5.0</apex.version>
+    <malhar.version>3.8.0-SNAPSHOT</malhar.version>
     <apex.apppackage.classpath>lib/*.jar</apex.apppackage.classpath>
   </properties>
 
@@ -260,14 +260,14 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>org.apache.httpcomponents</groupId>
-      <artifactId>httpclient</artifactId>
-      <version>4.3.6</version>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk-s3</artifactId>
+      <version>1.10.73</version>
     </dependency>
     <dependency>
       <groupId>com.amazonaws</groupId>
       <artifactId>aws-java-sdk-kinesis</artifactId>
-      <version>1.9.10</version>
+      <version>1.10.73</version>
     </dependency>
     <dependency>
       <groupId>org.apache.apex</groupId>
@@ -281,12 +281,12 @@
       <version>4.10</version>
       <scope>test</scope>
     </dependency>
-    <dependency>
+    <!--dependency>
       <groupId>org.apache.apex</groupId>
       <artifactId>apex-engine</artifactId>
       <version>${apex.version}</version>
       <scope>test</scope>
-    </dependency>
+    </dependency!-->
   </dependencies>
 
 </project>
