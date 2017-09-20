@@ -26,7 +26,7 @@ public class CustomerServiceHbaseOutputOperator extends TelecomDemoHBaseOutputOp
     put.add(familyName, Bytes.toBytes("totalDuration"), Bytes.toBytes(cs.totalDuration));
     put.add(familyName, Bytes.toBytes("wait"), Bytes.toBytes(cs.wait));
     put.add(familyName, Bytes.toBytes("zipCode"), Bytes.toBytes(cs.zipCode));
-    put.add(familyName, Bytes.toBytes("issueType"), Bytes.toBytes(cs.issueType.name()));
+    put.add(familyName, Bytes.toBytes("issueType"), Bytes.toBytes(cs.issueType));
     put.add(familyName, Bytes.toBytes("satisfied"), Bytes.toBytes(cs.satisfied));
     return put;
   }

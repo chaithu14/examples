@@ -243,8 +243,187 @@
     <name>dt.application.SalesDemo.operator.Enrichment.filePath</name>
     <value>./products.txt</value>
   </property>
-  
+
   <!-- settings for telecom demos -->
+  <property>
+    <name>dt.application.GenerateTelecomDataApp.operator.CDROutput.prop.filePath</name>
+    <value>input/tApp/CDR</value>
+  </property>
+  <property>
+    <name>dt.application.GenerateTelecomDataApp.operator.CDROutput.prop.outputFileName</name>
+    <value>CDRData.txt</value>
+  </property>
+  <property>
+    <name>dt.application.GenerateTelecomDataApp.operator.CDROutput.prop.maxLength</name>
+    <value>5242880</value>
+  </property>
+
+  <property>
+    <name>dt.application.GenerateTelecomDataApp.operator.CustOutput.prop.filePath</name>
+    <value>input/tApp/CS/</value>
+  </property>
+  <property>
+    <name>dt.application.GenerateTelecomDataApp.operator.CustOutput.prop.outputFileName</name>
+    <value>CSData.txt</value>
+  </property>
+  <property>
+    <name>dt.application.GenerateTelecomDataApp.operator.CustOutput.prop.maxLength</name>
+    <value>5242880</value>
+  </property>
+
+  <!-- settings for telecom demos -->
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CDRcsvParser.prop.schema</name>
+    <value>{
+      "separator": ",",
+      "quoteChar": "\"",
+      "fields": [
+      {
+      "name": "isdn",
+      "type": "String"
+      },
+      {
+      "name": "imsi",
+      "type": "String"
+      },
+      {
+      "name": "imei",
+      "type": "String"
+      },
+      {
+      "name": "plan",
+      "type": "String"
+      },
+      {
+      "name": "callType",
+      "type": "String"
+      },
+      {
+      "name": "correspType",
+      "type": "String"
+      },
+      {
+      "name": "correspIsdn",
+      "type": "String"
+      },
+      {
+      "name": "duration",
+      "type": "Integer"
+      },
+      {
+      "name": "bytes",
+      "type": "Integer"
+      },
+      {
+      "name": "dr",
+      "type": "Integer"
+      },
+      {
+      "name": "lat",
+      "type": "Float"
+      },
+      {
+      "name": "lon",
+      "type": "Float"
+      },
+      {
+      "name": "time",
+      "type": "Long"
+      }
+      ]
+      }
+    </value>
+    <description>Specify schema for CSV Parser.</description>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CDRcsvParser.port.out.attr.TUPLE_CLASS</name>
+    <value>com.datatorrent.demos.dimensions.telecom.model.CallDetailRecord</value>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CDRReader.prop.files</name>
+    <value>input/tApp/CDR/</value>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CDRReader.prop.minReaders</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CDRReader.prop.maxReaders</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CDRReader.prop.blocksThreshold</name>
+    <value>1</value>
+  </property>
+
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CScsvParser.prop.schema</name>
+    <value>{
+      "separator": ",",
+      "quoteChar": "\"",
+      "fields": [
+      {
+      "name": "imsi",
+      "type": "String"
+      },
+      {
+      "name": "isdn",
+      "type": "String"
+      },
+      {
+      "name": "imei",
+      "type": "String"
+      },
+      {
+      "name": "totalDuration",
+      "type": "Integer"
+      },
+      {
+      "name": "wait",
+      "type": "Integer"
+      },
+      {
+      "name": "zipCode",
+      "type": "String"
+      },
+      {
+      "name": "issueType",
+      "type": "String"
+      },
+      {
+      "name": "satisfied",
+      "type": "Boolean"
+      },
+      {
+      "name": "time",
+      "type": "Long"
+      }
+      ]
+      }
+    </value>
+    <description>Specify schema for CSV Parser.</description>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CScsvParser.port.out.attr.TUPLE_CLASS</name>
+    <value>com.datatorrent.demos.dimensions.telecom.model.CustomerService</value>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CSReader.prop.files</name>
+    <value>input/tApp/CS/</value>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CSReader.prop.minReaders</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CSReader.prop.maxReaders</name>
+    <value>1</value>
+  </property>
+  <property>
+    <name>dt.application.TelecomDemoV2.operator.CSReader.prop.blocksThreshold</name>
+    <value>1</value>
+  </property>
+
   <property>
     <name>dt.application.TelecomDemoV2.cdroutputmask</name>
     <value>0</value>

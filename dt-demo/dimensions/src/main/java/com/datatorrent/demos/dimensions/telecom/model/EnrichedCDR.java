@@ -79,7 +79,7 @@ public class EnrichedCDR extends CallDetailRecord implements BytesSupport
     deviceModel = tacInfo.model;
 
     //enrich location info
-    LocationInfo li = LocationRepo.instance().getCloseLocationInfo(getLat(), getLon());
+    LocationInfo li = LocationRepo.instance().getCloseLocationInfo((float)getLat(), (float)getLon());
     //zip code
     zipCode = li.getZipCodeAsString();
     stateCode = li.stateCode;

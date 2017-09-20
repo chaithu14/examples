@@ -26,8 +26,8 @@ public class CallDetailRecord implements BytesSupport
   private int duration;
   private int bytes;
   private int dr; // disconnect reason code
-  private float lat;
-  private float lon;
+  private double lat;
+  private double lon;
   private long time;
 
   // MM/DD/YYYY
@@ -52,8 +52,8 @@ public class CallDetailRecord implements BytesSupport
     this.setDuration(Bytes.toInt(nameValueMap.get("duration")));
     this.setBytes(Bytes.toInt(nameValueMap.get("bytes")));
     this.setDr(Bytes.toInt(nameValueMap.get("dr")));
-    this.setLat(Bytes.toFloat(nameValueMap.get("lat")));
-    this.setLon(Bytes.toFloat(nameValueMap.get("lon")));
+    this.setLat(Bytes.toDouble(nameValueMap.get("lat")));
+    this.setLon(Bytes.toDouble(nameValueMap.get("lon")));
 
     this.setTime(Bytes.toString(nameValueMap.get("timeInDay")), Bytes.toString(nameValueMap.get("date")));
   }
@@ -163,22 +163,22 @@ public class CallDetailRecord implements BytesSupport
     this.dr = dr;
   }
 
-  public float getLat()
+  public double getLat()
   {
     return lat;
   }
 
-  public void setLat(float lat)
+  public void setLat(double lat)
   {
     this.lat = lat;
   }
 
-  public float getLon()
+  public double getLon()
   {
     return lon;
   }
 
-  public void setLon(float lon)
+  public void setLon(double lon)
   {
     this.lon = lon;
   }
@@ -256,11 +256,12 @@ public class CallDetailRecord implements BytesSupport
     sb.append(String.format("%.4f", lat)).append(delimiter);
     sb.append(String.format("%.4f", lon)).append(delimiter);
 
+    sb.append(time);
     // hh:mm:ss
-    sb.append(getTimeInDay()).append(delimiter);
+    /*sb.append(getTimeInDay()).append(delimiter);
 
     // MM/DD/YYYY
-    sb.append(getDate());
+    sb.append(getDate());*/
 
     return sb.toString();
   }

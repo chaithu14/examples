@@ -56,7 +56,7 @@ public class CustomerServiceCassandraOutputOperator extends TelecomDemoCassandra
     boundStmnt.setInt(2, tuple.totalDuration);
     boundStmnt.setInt(3, tuple.wait);
     boundStmnt.setString(4, tuple.zipCode);
-    boundStmnt.setString(5, tuple.issueType.name());
+    boundStmnt.setString(5, tuple.issueType);
     boundStmnt.setBool(6, tuple.satisfied);
 
     //or boundStatement.bind();

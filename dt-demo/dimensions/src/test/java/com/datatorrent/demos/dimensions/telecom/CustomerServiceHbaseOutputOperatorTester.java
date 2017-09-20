@@ -29,7 +29,6 @@ import com.datatorrent.demos.dimensions.telecom.conf.CustomerServiceHBaseConf;
 import com.datatorrent.demos.dimensions.telecom.conf.DataWarehouseConfig;
 import com.datatorrent.demos.dimensions.telecom.conf.TelecomDemoConf;
 import com.datatorrent.demos.dimensions.telecom.model.CustomerService;
-import com.datatorrent.demos.dimensions.telecom.model.CustomerService.IssueType;
 import com.datatorrent.demos.dimensions.telecom.operator.CustomerServiceGenerateOperator;
 import com.datatorrent.demos.dimensions.telecom.operator.CustomerServiceHbaseOutputOperator;
 import com.datatorrent.lib.testbench.ArrayListTestSink;
@@ -304,7 +303,7 @@ public class CustomerServiceHbaseOutputOperatorTester
       }
 
       CustomerService cs = (CustomerService)obj;
-      return imsi.equals(cs.imsi) && totalDuration == cs.totalDuration && wait == cs.wait && zipCode.equals(zipCode) && IssueType.valueOf(issueType) == cs.issueType && satisfied == cs.satisfied;
+      return imsi.equals(cs.imsi) && totalDuration == cs.totalDuration && wait == cs.wait && zipCode.equals(zipCode) && issueType == cs.issueType && satisfied == cs.satisfied;
     }
 
     public String getImsi()

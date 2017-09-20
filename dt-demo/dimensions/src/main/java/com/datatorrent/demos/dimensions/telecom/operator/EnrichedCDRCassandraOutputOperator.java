@@ -65,8 +65,8 @@ public class EnrichedCDRCassandraOutputOperator extends TelecomDemoCassandraOutp
     boundStmnt.setInt(index++, tuple.getDuration());
     boundStmnt.setInt(index++, tuple.getBytes());
     boundStmnt.setInt(index++, tuple.getDr());
-    boundStmnt.setFloat(index++, tuple.getLat());
-    boundStmnt.setFloat(index++, tuple.getLon());
+    boundStmnt.setFloat(index++, (float)tuple.getLat());
+    boundStmnt.setFloat(index++, (float)tuple.getLon());
     boundStmnt.setString(index++, tuple.getDate());
     boundStmnt.setString(index++, tuple.getTimeInDay());
     boundStmnt.setString(index++, tuple.getDrLabel());

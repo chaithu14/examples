@@ -8,24 +8,24 @@ import java.util.Calendar;
 
 public class CustomerService
 {
-  public static final String delimiter = ";";
+  public static final String delimiter = ",";
 
   public static enum IssueType
   {
     DeviceUpgrade, CallQuality, DeviceQuality, Billing, NetworkCoverage, Roaming
   }
 
-  public final String imsi;
-  public final String isdn;
-  public final String imei;
-  public final int totalDuration;
-  public final int wait;
-  public final String zipCode;
-  public final IssueType issueType;
-  public final boolean satisfied;
-  public final long time = Calendar.getInstance().getTimeInMillis();
+  public String imsi;
+  public String isdn;
+  public String imei;
+  public int totalDuration;
+  public int wait;
+  public String zipCode;
+  public String issueType;
+  public boolean satisfied;
+  public long time = Calendar.getInstance().getTimeInMillis();
 
-  protected CustomerService()
+  public CustomerService()
   {
     imsi = "";
     isdn = "";
@@ -46,13 +46,13 @@ public class CustomerService
     this.totalDuration = totalDuration;
     this.wait = wait;
     this.zipCode = zipCode;
-    this.issueType = issueType;
+    this.issueType = issueType.toString();
     this.satisfied = satisfied;
   }
 
   public CustomerService(CustomerService other)
   {
-    this(other.imsi, other.isdn, other.imei, other.totalDuration, other.wait, other.zipCode, other.issueType,
+    this(other.imsi, other.isdn, other.imei, other.totalDuration, other.wait, other.zipCode, IssueType.valueOf(other.issueType),
         other.satisfied);
   }
 
@@ -68,6 +68,7 @@ public class CustomerService
     sb.append(zipCode).append(delimiter);
     sb.append(issueType).append(delimiter);
     sb.append(satisfied).append(delimiter);
+    sb.append(time);
 
     return sb.toString();
   }
@@ -94,7 +95,7 @@ public class CustomerService
 
   public String getIssueType()
   {
-    return issueType.name();
+    return issueType;
   }
 
   //return 100 is satisfied, else 0
@@ -130,5 +131,70 @@ public class CustomerService
           "The length of the zipCode ( " + zipCode.length() + ") is less than begin length: (" + length + ").");
     }
     return zipCode.substring(0, length);
+  }
+
+  public void setImsi(String imsi)
+  {
+    this.imsi = imsi;
+  }
+
+  public void setIsdn(String isdn)
+  {
+    this.isdn = isdn;
+  }
+
+  public void setImei(String imei)
+  {
+    this.imei = imei;
+  }
+
+  public void setTotalDuration(int totalDuration)
+  {
+    this.totalDuration = totalDuration;
+  }
+
+  public void setWait(int wait)
+  {
+    this.wait = wait;
+  }
+
+  public void setZipCode(String zipCode)
+  {
+    this.zipCode = zipCode;
+  }
+
+  public void setIssueType(String issueType)
+  {
+    this.issueType = issueType;
+  }
+
+  public void setSatisfied(boolean satisfied)
+  {
+    this.satisfied = satisfied;
+  }
+
+  public void setTime(long time)
+  {
+    this.time = time;
+  }
+
+  public String getImsi()
+  {
+    return imsi;
+  }
+
+  public String getIsdn()
+  {
+    return isdn;
+  }
+
+  public String getImei()
+  {
+    return imei;
+  }
+
+  public boolean isSatisfied()
+  {
+    return satisfied;
   }
 }

@@ -44,7 +44,7 @@ public class CallDetailRecordGenerateOperator implements InputOperator
   {
     if (bytesOutputPort.isConnected()) {
       for (int i = 0; i < batchSize; ++i) {
-        bytesOutputPort.emit(customerInfoGeneratorGenerator.next().toLine().getBytes());
+        bytesOutputPort.emit(customerInfoGeneratorGenerator.next().toString().getBytes());
       }
     }
     if (cdrOutputPort.isConnected()) {

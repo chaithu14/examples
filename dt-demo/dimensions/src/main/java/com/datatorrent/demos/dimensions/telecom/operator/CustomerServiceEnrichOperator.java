@@ -15,18 +15,19 @@ public class CustomerServiceEnrichOperator extends BaseOperator
 {
 
   @InputPortFieldAnnotation(optional = true)
-  public final transient DefaultInputPort<CustomerService> inputPort = new DefaultInputPort<CustomerService>()
+  public final transient DefaultInputPort<Object> inputPort = new DefaultInputPort<Object>()
   {
     @Override
-    public void process(CustomerService t)
+    public void process(Object t)
     {
       processTuple(t);
     }
   };
   public final transient DefaultOutputPort<EnrichedCustomerService> outputPort = new DefaultOutputPort<EnrichedCustomerService>();
 
-  public void processTuple(CustomerService tuple)
+  public void processTuple(Object t)
   {
+    CustomerService tuple = (CustomerService)t;
     EnrichedCustomerService enriched = EnrichedCustomerService.fromCustomerService(tuple);
 
     if (filter(enriched)) {

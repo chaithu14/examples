@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.apex.malhar.lib.dimensions.DimensionsEvent.Aggregate;
 import org.apache.apex.malhar.lib.dimensions.DimensionsEvent.InputEvent;
 import org.apache.apex.malhar.lib.dimensions.aggregator.AggregatorIncrementalType;
+import org.apache.apex.malhar.lib.fs.FSRecordReaderModule;
 import org.apache.commons.lang.mutable.MutableLong;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.hadoop.conf.Configuration;
@@ -32,6 +33,7 @@ import com.datatorrent.api.annotation.ApplicationAnnotation;
 import com.datatorrent.contrib.dimensions.DimensionStoreHDHTNonEmptyQueryResultUnifier;
 import com.datatorrent.contrib.hdht.tfile.TFileImpl;
 import com.datatorrent.contrib.hive.HiveStore;
+import com.datatorrent.contrib.parser.CsvParser;
 import com.datatorrent.demos.dimensions.telecom.conf.ConfigUtil;
 import com.datatorrent.demos.dimensions.telecom.conf.EnrichedCustomerServiceHiveConfig;
 import com.datatorrent.demos.dimensions.telecom.conf.TelecomDemoConf;
@@ -41,7 +43,6 @@ import com.datatorrent.demos.dimensions.telecom.model.EnrichedCustomerService;
 import com.datatorrent.demos.dimensions.telecom.operator.AppDataSimpleConfigurableSnapshotServer;
 import com.datatorrent.demos.dimensions.telecom.operator.AppDataSnapshotServerAggregate;
 import com.datatorrent.demos.dimensions.telecom.operator.CustomerServiceEnrichOperator;
-import com.datatorrent.demos.dimensions.telecom.operator.CustomerServiceGenerateOperator;
 import com.datatorrent.demos.dimensions.telecom.operator.CustomerServiceStore;
 import com.datatorrent.demos.dimensions.telecom.operator.EnrichedCustomerServiceCassandraOutputOperator;
 import com.datatorrent.demos.dimensions.telecom.operator.EnrichedCustomerServiceHbaseOutputOperator;
@@ -50,6 +51,7 @@ import com.datatorrent.lib.appdata.schemas.SchemaUtils;
 import com.datatorrent.lib.appdata.schemas.Type;
 import com.datatorrent.lib.counters.BasicCounters;
 import com.datatorrent.lib.dimensions.DimensionsComputationFlexibleSingleSchemaPOJO;
+import com.datatorrent.lib.io.ConsoleOutputOperator;
 import com.datatorrent.lib.io.PubSubWebSocketAppDataQuery;
 import com.datatorrent.lib.io.PubSubWebSocketAppDataResult;
 import com.datatorrent.lib.statistics.DimensionsComputationUnifierImpl;
@@ -195,13 +197,21 @@ public class CustomerServiceDemoV2 implements StreamingApplication
     String eventSchema = SchemaUtils.jarResourceFileToString(eventSchemaLocation);
 
     // Customer service generator
-    CustomerServiceGenerateOperator customerServiceGenerator = new CustomerServiceGenerateOperator();
-    dag.addOperator("IngestCustomerServiceData", customerServiceGenerator);
+    //CustomerServiceGenerateOperator customerServiceGenerator = new CustomerServiceGenerateOperator();
+    //dag.addOperator("IngestCustomerServiceData", customerServiceGenerator);
+
+    FSRecordReaderModule reader = dag.addModule("CSReader", new FSRecordReaderModule());
+    CsvParser csvParser = dag.addOperator("CScsvParser", CsvParser.class);
+    ConsoleOutputOperator errorOut = dag.addOperator("ErrorPort", new ConsoleOutputOperator());
+
+    dag.addStream("InputStream2", reader.records, csvParser.in);
+    dag.addStream("ParserToError", csvParser.err, errorOut.input);
 
     CustomerServiceEnrichOperator enrichOperator = new CustomerServiceEnrichOperator();
     dag.addOperator("EnrichServiceRecords", enrichOperator);
 
-    dag.addStream("CustomerService", customerServiceGenerator.outputPort, enrichOperator.inputPort);
+    //dag.addStream("CustomerService", customerServiceGenerator.outputPort, enrichOperator.inputPort);
+    dag.addStream("CustomerService", csvParser.out, enrichOperator.inputPort);
 
     List<DefaultInputPort<? super EnrichedCustomerService>> customerServiceStreamSinks = Lists.newArrayList();
 

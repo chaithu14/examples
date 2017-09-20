@@ -25,10 +25,10 @@ public class CDREnrichOperator extends BaseOperator
   };
 
   @InputPortFieldAnnotation(optional = true)
-  public final transient DefaultInputPort<CallDetailRecord> cdrInputPort = new DefaultInputPort<CallDetailRecord>()
+  public final transient DefaultInputPort<Object> cdrInputPort = new DefaultInputPort<Object>()
   {
     @Override
-    public void process(CallDetailRecord t)
+    public void process(Object t)
     {
       processTuple(t);
     }
@@ -44,8 +44,9 @@ public class CDREnrichOperator extends BaseOperator
     }
   }
 
-  public void processTuple(CallDetailRecord tuple)
+  public void processTuple(Object t)
   {
+    CallDetailRecord tuple = (CallDetailRecord)t;
     EnrichedCDR enriched = EnrichedCDR.fromCallDetailRecord(tuple);
 
     if (filter(enriched)) {

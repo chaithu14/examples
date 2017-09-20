@@ -58,7 +58,7 @@ public class EnrichedCustomerServiceCassandraOutputOperator
     boundStmnt.setInt(2, tuple.totalDuration);
     boundStmnt.setInt(3, tuple.wait);
     boundStmnt.setString(4, tuple.zipCode);
-    boundStmnt.setString(5, tuple.issueType.name());
+    boundStmnt.setString(5, tuple.issueType);
     boundStmnt.setBool(6, tuple.satisfied);
     boundStmnt.setString(7, tuple.operatorCode);
     boundStmnt.setString(8, tuple.deviceBrand);

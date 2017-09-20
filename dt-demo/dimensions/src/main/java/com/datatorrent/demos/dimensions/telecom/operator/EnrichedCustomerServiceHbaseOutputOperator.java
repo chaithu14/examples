@@ -26,7 +26,7 @@ public class EnrichedCustomerServiceHbaseOutputOperator extends TelecomDemoHBase
     put.add(familyName, Bytes.toBytes("totalDuration"), Bytes.toBytes(ecs.totalDuration));
     put.add(familyName, Bytes.toBytes("wait"), Bytes.toBytes(ecs.wait));
     put.add(familyName, Bytes.toBytes("zipCode"), Bytes.toBytes(ecs.zipCode));
-    put.add(familyName, Bytes.toBytes("issueType"), Bytes.toBytes(ecs.issueType.name()));
+    put.add(familyName, Bytes.toBytes("issueType"), Bytes.toBytes(ecs.issueType));
     put.add(familyName, Bytes.toBytes("satisfied"), Bytes.toBytes(ecs.satisfied));
     put.add(familyName, Bytes.toBytes("satisfied"), Bytes.toBytes(ecs.operatorCode));
     put.add(familyName, Bytes.toBytes("satisfied"), Bytes.toBytes(ecs.deviceBrand));

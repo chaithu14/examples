@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.apache.apex.malhar.lib.dimensions.DimensionsEvent.Aggregate;
 import org.apache.apex.malhar.lib.dimensions.DimensionsEvent.InputEvent;
 import org.apache.apex.malhar.lib.dimensions.aggregator.AggregatorIncrementalType;
+import org.apache.apex.malhar.lib.fs.FSRecordReaderModule;
 import org.apache.commons.lang.mutable.MutableLong;
 import org.apache.commons.lang3.tuple.MutablePair;
 import org.apache.hadoop.conf.Configuration;
@@ -32,6 +33,7 @@ import com.datatorrent.api.annotation.ApplicationAnnotation;
 import com.datatorrent.contrib.dimensions.DimensionStoreHDHTNonEmptyQueryResultUnifier;
 import com.datatorrent.contrib.hdht.tfile.TFileImpl;
 import com.datatorrent.contrib.hive.HiveStore;
+import com.datatorrent.contrib.parser.CsvParser;
 import com.datatorrent.demos.dimensions.telecom.conf.ConfigUtil;
 import com.datatorrent.demos.dimensions.telecom.conf.EnrichedCDRHiveConfig;
 import com.datatorrent.demos.dimensions.telecom.conf.TelecomDemoConf;
@@ -41,7 +43,6 @@ import com.datatorrent.demos.dimensions.telecom.model.EnrichedCDR;
 import com.datatorrent.demos.dimensions.telecom.operator.AppDataSnapshotServerAggregate;
 import com.datatorrent.demos.dimensions.telecom.operator.CDREnrichOperator;
 import com.datatorrent.demos.dimensions.telecom.operator.CDRStore;
-import com.datatorrent.demos.dimensions.telecom.operator.CallDetailRecordGenerateOperator;
 import com.datatorrent.demos.dimensions.telecom.operator.EnrichedCDRCassandraOutputOperator;
 import com.datatorrent.demos.dimensions.telecom.operator.EnrichedCDRHbaseOutputOperator;
 import com.datatorrent.demos.dimensions.telecom.operator.GeoDimensionStore;
@@ -192,14 +193,20 @@ public class CDRDemoV2 implements StreamingApplication
     String eventSchema = SchemaUtils.jarResourceFileToString(cdrDimensionSchemaLocation);
 
     // CDR generator
-    CallDetailRecordGenerateOperator cdrGenerator = new CallDetailRecordGenerateOperator();
-    dag.addOperator("IngestCDRfromSolace", cdrGenerator);
+    //CallDetailRecordGenerateOperator cdrGenerator = new CallDetailRecordGenerateOperator();
+    //dag.addOperator("IngestCDRfromSolace", cdrGenerator);
+
+    FSRecordReaderModule reader = dag.addModule("CDRReader", new FSRecordReaderModule());
+    CsvParser csvParser = dag.addOperator("CDRcsvParser", CsvParser.class);
+
+    dag.addStream("InputStream", reader.records, csvParser.in);
 
     // CDR enrich
     CDREnrichOperator enrichOperator = new CDREnrichOperator();
     dag.addOperator("EnrichCDR", enrichOperator);
 
-    dag.addStream("InputStream", cdrGenerator.cdrOutputPort, enrichOperator.cdrInputPort).setLocality(Locality.CONTAINER_LOCAL);
+    //dag.addStream("InputStream", cdrGenerator.cdrOutputPort, enrichOperator.cdrInputPort).setLocality(Locality.CONTAINER_LOCAL);
+    dag.addStream("ParserToEnrich", csvParser.out, enrichOperator.cdrInputPort).setLocality(Locality.CONTAINER_LOCAL);
 
     List<DefaultInputPort<? super EnrichedCDR>> enrichedStreamSinks = Lists.newArrayList();
     // CDR persist

@@ -13,6 +13,7 @@ import com.datatorrent.demos.dimensions.telecom.model.CustomerService;
 public class CustomerServiceGenerateOperator implements InputOperator
 {
   public final transient DefaultOutputPort<CustomerService> outputPort = new DefaultOutputPort<CustomerService>();
+  public final transient DefaultOutputPort<byte[]> bytesPort = new DefaultOutputPort<>();
 
   private int batchSize = 10;
   private int batchSleepTime = 2;
@@ -50,7 +51,12 @@ public class CustomerServiceGenerateOperator implements InputOperator
   public void emitTuples()
   {
     for (int i = 0; i < batchSize; ++i) {
-      outputPort.emit(generator.next());
+      if (outputPort.isConnected()) {
+        outputPort.emit(generator.next());
+      }
+      if (bytesPort.isConnected()) {
+        bytesPort.emit(generator.next().toString().getBytes());
+      }
     }
     if (batchSleepTime > 0) {
       try {
