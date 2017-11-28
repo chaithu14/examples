@@ -15,7 +15,7 @@ public class CallDetailRecordGenerateOperator implements InputOperator
   public final transient DefaultOutputPort<byte[]> bytesOutputPort = new DefaultOutputPort<byte[]>();
   public final transient DefaultOutputPort<CallDetailRecord> cdrOutputPort = new DefaultOutputPort<CallDetailRecord>();
 
-  private int batchSize = 10;
+  private int batchSize = 1000;
   private int batchSleepTime = 2;
   private CallDetailRecordCustomerInfoGenerator customerInfoGeneratorGenerator = new CallDetailRecordCustomerInfoGenerator();
 

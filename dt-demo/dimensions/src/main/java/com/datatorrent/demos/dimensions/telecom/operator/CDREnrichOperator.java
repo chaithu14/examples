@@ -57,6 +57,6 @@ public class CDREnrichOperator extends BaseOperator
   private boolean filter(EnrichedCDR enriched)
   {
     String zipCode = enriched.getZipCode();
-    return zipCode.startsWith("93") || zipCode.startsWith("94") || zipCode.startsWith("95") || zipCode.startsWith("96");
+    return !zipCode.startsWith("93")/* || zipCode.startsWith("94") || zipCode.startsWith("95") || zipCode.startsWith("96")*/;
   }
 }

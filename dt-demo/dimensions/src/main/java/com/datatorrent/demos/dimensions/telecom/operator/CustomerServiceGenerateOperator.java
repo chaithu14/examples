@@ -15,7 +15,7 @@ public class CustomerServiceGenerateOperator implements InputOperator
   public final transient DefaultOutputPort<CustomerService> outputPort = new DefaultOutputPort<CustomerService>();
   public final transient DefaultOutputPort<byte[]> bytesPort = new DefaultOutputPort<>();
 
-  private int batchSize = 10;
+  private int batchSize = 1000;
   private int batchSleepTime = 2;
   private CustomerServiceDefaultGenerator generator = new CustomerServiceDefaultGenerator();
 

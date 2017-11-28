@@ -56,6 +56,8 @@ import com.datatorrent.lib.io.PubSubWebSocketAppDataQuery;
 import com.datatorrent.lib.io.PubSubWebSocketAppDataResult;
 import com.datatorrent.lib.statistics.DimensionsComputationUnifierImpl;
 
+import static com.datatorrent.api.Context.OperatorContext.TIMEOUT_WINDOW_COUNT;
+
 /**
  *
  * # of service calls by Zipcode Top 10 Zipcodes by Service Calls -> Drill Down
@@ -101,6 +103,7 @@ public class CustomerServiceDemoV2 implements StreamingApplication
   protected String serviceCallSchemaLocation = SERVICE_CALL_SCHEMA;
   protected String satisfactionRatingSchemaLocation = SATISFACTION_RATING_SCHEMA;
   protected String averageWaittimeSchemaLocation = AVERAGE_WAITTIME_SCHEMA;
+  private int timeOutWindowCount = 6000;
 
   protected boolean enableDimension = true;
   protected boolean enableGeo = true;
@@ -267,7 +270,7 @@ public class CustomerServiceDemoV2 implements StreamingApplication
       dag.getMeta(dimensions).getAttributes().put(Context.OperatorContext.APPLICATION_WINDOW_COUNT, 4);
       dag.getMeta(dimensions).getAttributes().put(Context.OperatorContext.CHECKPOINT_WINDOW_COUNT, 4);
       customerServiceStreamSinks.add(dimensions.input);
-
+      dag.setAttribute(dimensions, TIMEOUT_WINDOW_COUNT, timeOutWindowCount);
       // Set operator properties
       // key expression
       {
@@ -297,6 +300,7 @@ public class CustomerServiceDemoV2 implements StreamingApplication
       // store
       CustomerServiceStore store = dag.addOperator("StoreServiceKPIs", CustomerServiceStore.class);
       store.setUpdateEnumValues(true);
+      dag.setAttribute(store, TIMEOUT_WINDOW_COUNT, timeOutWindowCount);
       String basePath = Preconditions.checkNotNull(conf.get(PROP_STORE_PATH),
           "base path should be specified in the properties.xml");
       TFileImpl hdsFile = new TFileImpl.DTFileImpl();
@@ -439,6 +443,7 @@ public class CustomerServiceDemoV2 implements StreamingApplication
         DimensionsComputationFlexibleSingleSchemaPOJO.class);
     dag.getMeta(dimensions).getAttributes().put(Context.OperatorContext.APPLICATION_WINDOW_COUNT, 4);
     dag.getMeta(dimensions).getAttributes().put(Context.OperatorContext.CHECKPOINT_WINDOW_COUNT, 4);
+    dag.setAttribute(dimensions, TIMEOUT_WINDOW_COUNT, timeOutWindowCount);
 
     customerServiceStreamSinks.add(dimensions.input);
 
@@ -473,6 +478,7 @@ public class CustomerServiceDemoV2 implements StreamingApplication
     //AppDataSingleSchemaDimensionStoreHDHT store = dag.addOperator("StoreTaggedServiceGeoLocations", AppDataSingleSchemaDimensionStoreHDHT.class);
     GeoDimensionStore store = dag.addOperator("StoreTaggedServiceGeoLocations", GeoDimensionStore.class);
     store.setUpdateEnumValues(true);
+    dag.setAttribute(store, TIMEOUT_WINDOW_COUNT, timeOutWindowCount);
     String basePath = Preconditions.checkNotNull(conf.get(PROP_GEO_STORE_PATH),
         "GEO base path should be specified in the properties.xml");
     TFileImpl hdsFile = new TFileImpl.DTFileImpl();
