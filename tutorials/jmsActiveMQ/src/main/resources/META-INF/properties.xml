@@ -30,11 +30,19 @@
   </property>
   <property>
     <name>dt.operator.amqIn.prop.connectionFactoryProperties.brokerURL</name>
-    <value>vm://localhost</value>
+    <value>tcp://localhost:61616</value>
   </property>
   <property>
     <name>dt.operator.amqIn.prop.subject</name>
-    <value>jms4Amq</value>
+    <value>foo</value>
   </property>
+  <!--property>
+    <name>dt.operator.amqIn.prop.transacted</name>
+    <value>false</value>
+  </property>
+  <property>
+    <name>dt.operator.amqIn.prop.topic</name>
+    <value>true</value>
+  </property!-->
 </configuration>
 
