@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<configuration>
+  <property>
+    <name>dt.application.GeneratorApplication.operator.randomGenerator.prop.numTuples</name>
+    <value>100</value>
+  </property>
+  <property>
+    <name>dt.operator.(activemqreader)|(jmsOutputOperator).prop.connectionFactoryProperties.brokerURL</name>
+    <value>tcp://localhost:61616</value>
+  </property>
+  <property>
+    <name>dt.operator.(activemqreader)|(jmsOutputOperator).prop.connectionFactoryProperties.userName</name>
+    <value>admin</value>
+  </property>
+  <property>
+    <name>dt.operator.(activemqreader)|(jmsOutputOperator).prop.connectionFactoryProperties.password</name>
+    <value>admin</value>
+  </property>
+  <property>
+    <name>dt.operator.(activemqreader)|(jmsOutputOperator).prop.subject</name>
+    <value>testJMS</value>
+  </property>
+  <property>
+    <name>dt.operator.*.attr.MEMORY_MB</name>
+    <value>2048</value>
+  </property>
+</configuration>
+
